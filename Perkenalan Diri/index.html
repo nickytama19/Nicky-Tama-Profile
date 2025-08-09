@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nicky Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --secondary: #FF6584;
+            --dark: #292C33;
+            --light: #F5F5F7;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        /* Animated gradient background */
+        .gradient-bg {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Profile Image */
+        .profile-img {
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .profile-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        /* About Cards */
+        .about-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .about-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Skills Progress */
+        .progress-container {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .progress-bar {
+            background: var(--primary);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 1s ease-in-out;
+        }
+        
+        /* Portfolio Items */
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .portfolio-item img {
+            transition: all 0.5s ease;
+        }
+        
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(108, 99, 255, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        
+        /* Contact Form */
+        .contact-form input,
+        .contact-form textarea {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: white;
+            outline: none;
+        }
+        
+        /* Social Icons */
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+        
+        /* Floating elements */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            section {
+                padding: 60px 0;
+            }
+            
+            .hero {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="py-4 px-6 lg:px-16 transition-all duration-300">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-white">Nicky Profile</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="text-white hover:text-gray-200 transition">Home</a>
+                <a href="#about" class="text-white hover:text-gray-200 transition">About</a>
+                <a href="#skills" class="text-white hover:text-gray-200 transition">Skills</a>
+                <a href="#portfolio" class="text-white hover:text-gray-200 transition">Portfolio</a>
+                <a href="#contact" class="text-white hover:text-gray-200 transition">Contact</a>
+            </div>
+            <button class="md:hidden text-white">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero gradient-bg bg-no-repeat bg-cover text-white relative">
+        <div class="absolute inset-0 bg-black opacity-30"></div>
+        <div class="container mx-auto px-6 lg:px-16 hero-content">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4">Hello, I'm <span class="text-yellow-300">Nicky Tama Subandie</span></h1>
+                    <h2 class="text-2xl md:text-3xl mb-6">Professional <span class="typewriter"></span></h2>
+                    <p class="text-lg mb-8 opacity-90">
+                        A passionate creative professional with expertise in design and development. 
+                        I love turning ideas into beautiful, functional digital experiences.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#contact" class="bg-white text-gray-800 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition">
+                            <i class="fas fa-paper-plane mr-2"></i>Hire Me
+                        </a>
+                        <a href="#portfolio" class="border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-gray-800 transition">
+                            <i class="fas fa-eye mr-2"></i>View Work
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center relative">
+                    <img src="profile.png" alt="Professional portrait of a smiling creative individual in a modern office environment with blurred cityscape in the background" 
+                         class="profile-img w-64 h-64 md:w-80 md:h-80 floating" 
+                         style="animation-delay: 0.3s;">
+                    <div class="absolute -z-10 w-80 h-80 rounded-full bg-white opacity-10 floating" style="animation-delay: 0.6s;"></div>
+                    <div class="absolute -z-20 w-96 h-96 rounded-full bg-white opacity-5 floating" style="animation-delay: 0.9s;"></div>
+                </div>
+            </div>
+        </div>
+        <a href="#about" class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+        </a>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="bg-white py-20">
+        <div class="container mx-auto px-6 lg:px-16">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">About <span class="text-purple-600">Me</span></h2>
+                <div class="w-20 h-1 bg-purple-600 mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Get to know more about who I am, what I do, and my current skills
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6">Who am I?</h3>
+                    <p class="text-gray-600 mb-6">
+                        I'm a creative designer and developer with a passion for creating beautiful, functional, 
+                        and user-centered digital experiences. With over 2 years of experience in the industry, 
+                        I've had the privilege to work with amazing clients and talented teams.
+                    </p>
+                    <p class="text-gray-600 mb-6">
+                        When I'm not pushing pixels or writing code, you'll find me at art galleries, traveling, 
+                        or exploring the latest design trends and technologies.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-4">
+                        <div class="bg-gray-100 px-4 py-2 rounded-full flex items-center">
+                            <i class="fas fa-map-marker-alt text-purple-600 mr-2"></i>
+                            <span>Bandung, Indonesia</span>
+                        </div>
+                        <div class="bg-gray-100 px-4 py-2 rounded-full flex items-center">
+                            <i class="fas fa-envelope text-purple-600 mr-2"></i>
+                            <span>nickytamasubandie@gmail.com</span>
+                        </div>
+                        <div class="bg-gray-100 px-4 py-2 rounded-full flex items-center">
+                            <i class="fas fa-graduation-cap text-purple-600 mr-2"></i>
+                            <span>Highschool</span>
+                        </div>
+                        <div class="bg-gray-100 px-4 py-2 rounded-full flex items-center">
+                            <i class="fas fa-briefcase text-purple-600 mr-2"></i>
+                            <span>Freelance Available</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="about-card">
+                        <div class="text-4xl text-purple-600 mb-4">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <h4 class="text-xl font-semibold mb-2">100+ Projects</h4>
+                        <p class="text-gray-600">
+                            Completed various projects ranging from websites to mobile applications
+                        </p>
+                    </div>
+                    <div class="about-card">
+                        <div class="text-4xl text-purple-600 mb-4">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4 class="text-xl font-semibold mb-2">500+ Clients</h4>
+                        <p class="text-gray-600">
+                            Satisfied clients from various industries worldwide
+                        </p>
+                    </div>
+                    <div class="about-card">
+                        <div class="text-4xl text-purple-600 mb-4">
+                            <i class="fas fa-medal"></i>
+                        </div>
+                        <h4 class="text-xl font-semibold mb-2">100% Quality</h4>
+                        <p class="text-gray-600">
+                            Commitment to delivering high-quality work with attention to detail
+                        </p>
+                    </div>
+                    <div class="about-card">
+                        <div class="text-4xl text-purple-600 mb-4">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h4 class="text-xl font-semibold mb-2">24/7 Support</h4>
+                        <p class="text-gray-600">
+                            Dedicated support for all my clients even after project completion
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="bg-gray-100 py-20">
+        <div class="container mx-auto px-6 lg:px-16">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">My <span class="text-purple-600">Skills</span></h2>
+                <div class="w-20 h-1 bg-purple-600 mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Here are my technical and professional skills I've gathered over the years
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6">Technical Skills</h3>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-semibold">HTML / CSS</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-semibold">Javascript</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-semibold">Video Editor</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-semibold">Photo Desiger</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6">Professional Skills</h3>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-semibold">Communication</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-semibold">Project Management</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-semibold">Creativity</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-semibold">Team Work</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16">
+                <h3 class="text-2xl font-semibold mb-8 text-center">Tools & Technologies</h3>
+                <div class="flex flex-wrap justify-center gap-8">
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md mb-2">
+                            <i class="fab fa-html5 text-3xl text-orange-500"></i>
+                        </div>
+                        <span class="text-sm font-medium">HTML5</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md mb-2">
+                            <i class="fab fa-css3-alt text-3xl text-blue-500"></i>
+                        </div>
+                        <span class="text-sm font-medium">CSS3</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md mb-2">
+                            <i class="fab fa-js text-3xl text-yellow-500"></i>
+                        </div>
+                        <span class="text-sm font-medium">JavaScript</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="Skills Example" class="py-20 bg-white">
+        <div class="container mx-auto px-6 lg:px-16">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">My <span class="text-purple-600">Skills Example</span></h2>
+                <div class="w-20 h-1 bg-purple-600 mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Here are some of my habit. Each habit was carefully crafted to solve specific problems.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                <div class="portfolio-item">
+                    <img src="vsc.jpg" alt="Modern e-commerce website dashboard showing analytics charts, product listings, and customer reviews with a clean blue and white color scheme" 
+                         class="w-full h-64 object-cover rounded-lg">
+                    <div class="portfolio-overlay">
+                        <h4 class="text-white text-xl font-bold mb-2">Coding</h4>
+                        <p class="text-white text-center mb-4 px-4">
+                           Coding can train me problem solving
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    <img src="app.png" alt="Mobile banking application interface showing transaction history, account balance, and payment options with a modern fintech design" 
+                         class="w-full h-64 object-cover rounded-lg">
+                    <div class="portfolio-overlay">
+                        <h4 class="text-white text-xl font-bold mb-2">Video Editor</h4>
+                        <p class="text-white text-center mb-4 px-4">
+                            This is my alternate job in freelance
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    <img src="canva.jpg" alt="Healthcare app interface showing doctor appointments, medical records, and prescription refills with a clean medical-themed UI" 
+                         class="w-full h-64 object-cover rounded-lg">
+                    <div class="portfolio-overlay">
+                        <h4 class="text-white text-xl font-bold mb-2">Photo Designer</h4>
+                        <p class="text-white text-center mb-4 px-4">
+                            My weakest skill in freelance
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    <img src="projek.png" alt="Fitness tracking dashboard showing workout statistics, progress charts, and nutrition logs with a vibrant health-conscious color palette" 
+                         class="w-full h-64 object-cover rounded-lg">
+                    <div class="portfolio-overlay">
+                        <h4 class="text-white text-xl font-bold mb-2">Project Management</h4>
+                        <p class="text-white text-center mb-4 px-4">
+                            I have good a project Management, this is usefull skill
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a2aae131-7a84-45c6-97cc-665a8ff304af.png" alt="Digital marketing agency website homepage with service cards, client testimonials, and call-to-action buttons in a modern corporate style" 
+                         class="w-full h-64 object-cover rounded-lg">
+                    <div class="portfolio-overlay">
+                        <h4 class="text-white text-xl font-bold mb-2">Marketing Website</h4>
+                        <p class="text-white text-center mb-4 px-4">
+                            Convert-optimized website for digital marketing agency
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    <img src="ngomong.jpg" alt="Restaurant ordering system with menu categories, food images, and a shopping cart interface in an appetizing warm color scheme" 
+                         class="w-full h-64 object-cover rounded-lg">
+                    <div class="portfolio-overlay">
+                        <h4 class="text-white text-xl font-bold mb-2">Good Communication</h4>
+                        <p class="text-white text-center mb-4 px-4">
+                            I can speak English and public speaking 
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="gradient-bg bg-no-repeat bg-cover text-white py-20">
+        <div class="container mx-auto px-6 lg:px-16">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Get In <span class="text-yellow-300">Touch</span></h2>
+                <div class="w-20 h-1 bg-yellow-300 mx-auto mb-6"></div>
+                <p class="opacity-90 max-w-2xl mx-auto">
+                    Have a project in mind or want to discuss potential opportunities? Feel free to contact me!
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6">Contact Information</h3>
+                    <p class="opacity-90 mb-8">
+                        I'm open to discussing new projects, creative ideas, or opportunities to be part of your visions.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="text-yellow-300 text-xl mt-1 mr-4">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">Location</h4>
+                                <p class="opacity-90">Bandung, Indonesia</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="text-yellow-300 text-xl mt-1 mr-4">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">Email</h4>
+                                <p class="opacity-90">nickytamasubandie@gmail.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="text-yellow-300 text-xl mt-1 mr-4">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">Phone</h4>
+                                <p class="opacity-90">+62 882 9482 9791</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10">
+                        <h4 class="font-semibold mb-6">Follow Me</h4>
+                        <div class="flex space-x-4">
+                            <a href="https://linkedin.com/in/yourprofile" class="social-icon bg-white text-purple-600 hover:bg-purple-600 hover:text-white">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            </a>
+                            <a href="https://www.instagram.com/nickyyyyyy19?igsh=ams3dmpiM21yMnhl" class="social-icon bg-white text-purple-600 hover:bg-purple-600 hover:text-white">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6 lg:px-16 text-center">
+            <a href="#home" class="text-2xl font-bold mb-6 inline-block hover:text-purple-400 transition">Nicky Profile</a>
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="#" class="hover:text-purple-400 transition"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/nickyyyyyy19?igsh=ams3dmpiM21yMnhl" class="hover:text-purple-400 transition"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="text-gray-400">© 2025 Nicky Tama Subandie. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+        
+        // Typewriter effect
+        const typewriterText = ["Designer", "Developer", "Creator", "Problem Solver"];
+        let count = 0;
+        let index = 0;
+        let currentText = "";
+        let letter = "";
+        
+        (function type() {
+            if (count === typewriterText.length) {
+                count = 0;
+            }
+            currentText = typewriterText[count];
+            letter = currentText.slice(0, ++index);
+            
+            document.querySelector(".typewriter").textContent = letter;
+            
+            if (letter.length === currentText.length) {
+                setTimeout(function() {
+                    index = 0;
+                    count++;
+                    setTimeout(type, 1000);
+                }, 2000);
+                return;
+            }
+            
+            setTimeout(type, 100);
+        })();
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Animate progress bars on scroll
+        window.addEventListener('scroll', function() {
+            const skillsSection = document.getElementById('skills');
+            const progressBars = document.querySelectorAll('.progress-bar');
+            const sectionPosition = skillsSection.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.3;
+            
+            if (sectionPosition < screenPosition) {
+                progressBars.forEach(bar => {
+                    const width = bar.style.width;
+                    bar.style.transition = 'none';
+                    bar.style.width = '0';
+                    setTimeout(() => {
+                        bar.style.transition = 'width 1s ease-in-out';
+                        bar.style.width = width;
+                    }, 0);
+                });
+            }
+        });
+        
+        // Mobile menu toggle
+        const menuButton = document.querySelector('button.md\\:hidden');
+        menuButton.addEventListener('click', function() {
+            const menu = document.querySelector('.hidden.md\\:flex');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('slide-in');
+        });
+        
+        // Add animation class when element is in viewport
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        document.querySelectorAll('.about-card, .portfolio-item').forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>
+
